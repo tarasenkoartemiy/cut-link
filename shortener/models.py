@@ -13,10 +13,6 @@ class Url(models.Model):
     clicks = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def follow_link(self):
-        self.clicks += 1
-        self.save()
-
     def save(self, *args, **kwargs):
         if not self.short_path:
             while True:
