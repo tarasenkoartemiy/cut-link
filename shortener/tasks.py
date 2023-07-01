@@ -1,4 +1,4 @@
-from cut_link.celery import app
+from cut_link.celery_app import app
 from django.core.cache import cache
 from .models import Url
 

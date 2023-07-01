@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'shortener',
-    'django_extensions'
+    'shortener'
 ]
 
 MIDDLEWARE = [
@@ -131,12 +130,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379",
+        "LOCATION": f"redis://{env('REDIS_HOST')}:{env('REDIS_PORT')}",
         "OPTIONS": {
             "db": "1",
         },
     }
 }
 
-CELERY_BROKER_URL = CELERY_RESULT_BACKEND = "redis://127.0.0.1:6379/0"
+CELERY_BROKER_URL = CELERY_RESULT_BACKEND = f"redis://{env('REDIS_HOST')}:{env('REDIS_PORT')}/0"
 CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 3600}
