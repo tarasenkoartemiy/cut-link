@@ -13,4 +13,8 @@ app.conf.beat_schedule = {
         'task': 'shortener.tasks.update_db_and_clean_cache',
         'schedule': crontab()
     },
+    'remove-unused-links-every-day': {
+        'task': 'shortener.tasks.remove-unused-links',
+        'schedule': crontab(minute=0, hour=0)
+    },
 }
