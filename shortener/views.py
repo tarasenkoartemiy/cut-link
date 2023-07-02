@@ -8,9 +8,9 @@ from django.core.cache import cache
 
 class UrlView(View):
     def get(self, request, short_path):
+        obj = get_object_or_404(Url, short_path=short_path)
         cache.get_or_set(short_path, 0, timeout=None)
         cache.incr(short_path)
-        obj = get_object_or_404(Url, short_path=short_path)
         return redirect(obj.original_url)
 
 

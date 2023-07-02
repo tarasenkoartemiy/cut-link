@@ -1,6 +1,6 @@
 FROM python:3.10-alpine3.18
 
-WORKDIR /cutlink
+WORKDIR /cut-link
 COPY . .
 EXPOSE 8000
 

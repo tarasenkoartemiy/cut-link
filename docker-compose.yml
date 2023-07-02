@@ -1,12 +1,12 @@
 version: "3"
 services:
-  cutlink:
+  cut-link:
     build:
       context: .
     ports:
       - "8000:8000"
     volumes:
-      - .:/cutlink
+      - cut-link:/cut-link
     env_file:
       - cut_link/.env
     command: >
@@ -31,33 +31,20 @@ services:
     restart: unless-stopped
   redis:
     image: redis:7.0-alpine3.18
-  worker:
+  celery:
     restart: always
     build:
       context: .
-    command: celery -A cut_link worker -l info
+    command: celery -A cut_link worker -B -l info
     volumes:
-      - .:/cutlink
+      - cut-link:/cut-link
     env_file:
       - cut_link/.env
     depends_on:
       - database
-      - cutlink
+      - cut-link
       - redis
-  beat:
-    restart: always
-    build:
-      context: .
-    command: celery -A cut_link beat -l info
-    volumes:
-      - .:/cutlink
-    env_file:
-      - cut_link/.env
-    depends_on:
-      - database
-      - cutlink
-      - redis
-      - worker
 volumes:
+  cut-link:
   postgres-data:
 
